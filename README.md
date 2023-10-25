@@ -105,51 +105,55 @@ Conclusively, while there's room for enhancement, the model has notably achieved
 
 <h3> Decluttering Performance </h3>
 
-For the decluttering performance, It's much more difficult to have an accurate view of the true performance of the model. This is generally because the variation in how the copyright notice can contain clutter is way more than the number of ways a copyright statement can be structured.
+Understanding the decluttering performance of the model can be somewhat challenging. While the concept of copyright statements might seem straightforward, the real-world variations in these statements introduce significant complexity. The varied ways a copyright notice might be embedded amidst other information creates many edge cases for any algorithm to consider.
 
-In order to showcase the performance of the decluttering, I'll be showcasing some of the examples it gets right, some of what it gets wrong and how it can best be used in the future. Here are some examples (The highlighted part is what is labeled by the model, anything else is considered clutter):
-1. `Copyright (c) 2001 Bill Bumgarner <bbum@friday.com>` License: MIT, see below. 
-2. `Copyright (C) 2001 Python Software Foundation, www.python.org Taken from     Python2.2`, License: PSF - see below. 
-3. `Copyright (C) 2001 Python Software Foundation` , www.python.org `Taken from  Python2.2`, License: PSF - see below. 
-4. `copyright, i.e., "`  `Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation` ; All Rights Reserved" are retained in Python alone or in any derivative version prepared by Licensee. 
-5. `Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>'` Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
-6. `Copyright 2019 Ansible Project GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)`
-7. `(c) 2014, James Tanner <tanner.jc@gmail.com>`
-8. `(c) 2017 Ansible Project GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt) from __future__ import (absolute_import, division, print_function) metaclass__` = type
-9.   `(c) 2013, bleader Written by bleader <bleader@ratonland.org> Based on` pkgin module written by Shaun Zinck  that was based on pacman module written by Afterburn <https://github.com/afterburn> that was based on apt module written by Matthew Williams <matthew@flowrout> 
-10.  `(c) 2005, 2014 jQuery Foundation, Inc.` | jquery.org/license */
-11.  `Copyright 2005-2008 The Android Open Source Project This product includes software developed as part of The Android Open Source Project` (http://source.android.com).
-12.  `Copyright (c) 1998 Hewlett-Packard CompanydescsRGB IEC61966-2.1sRGB IEC61966-2.1XYZ óQ ÌXYZ XYZ o¢8õXYZ b·ÚXYZ $ ¶ÏdescIEC http://www.iec.chIEC`
+For illustration, consider the following examples where the highlighted portion indicates what our model identifies as the core copyright notice:
+ 1. `Copyright (c) 2001 Bill Bumgarner <bbum@friday.com>` License: MIT, see below.
+ 2. `Copyright (C) 2001 Python Software Foundation, www.python.org Taken from     Python2.2`, License: PSF - see below.
+ 3. `Copyright (C) 2001 Python Software Foundation` , www.python.org `Taken from  Python2.2`, License: PSF - see below.
+ 4. `copyright, i.e., "`  `Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation` ; All Rights Reserved" are retained in Python alone or in any derivative version prepared by Licensee.
+ 5. `Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>'` Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+ 6. `Copyright 2019 Ansible Project GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)`
+ 7. `(c) 2014, James Tanner <tanner.jc@gmail.com>`
+ 8. `(c) 2017 Ansible Project GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt) from __future__ import (absolute_import, division, print_function) metaclass__` = type
+ 9. `(c) 2013, bleader Written by bleader <bleader@ratonland.org> Based on` pkgin module written by Shaun Zinck that was based on pacman module written by Afterburn <https://github.com/afterburn> that was based on apt module written by Matthew Williams <matthew@flowrout>
+ 10. `(c) 2005, 2014 jQuery Foundation, Inc.` | jquery.org/license */
+ 11. `Copyright 2005-2008 The Android Open Source Project This product includes software developed as part of The Android Open Source Project` (http://source.android.com).
+ 12. `Copyright (c) 1998 Hewlett-Packard CompanydescsRGB IEC61966-2.1sRGB IEC61966-2.1XYZ óQ ÌXYZ XYZ o¢8õXYZ b·ÚXYZ $ ¶ÏdescIEC http://www.iec.chIEC`
 
-There are many more examples but the gist is, The model requires more data before it able to generalize properly, currently I've only been able to train on a dataset of around 4000 labeled texts, The model performs really well on the trained datasets, even on the rest of the dataset it is not trained on, but once it gets to other datasets and repositories, if it has not seed anything like that before it has issues, for example the GNU license the model hasn't seen before so it doesn't detect it. If it was trained on ansible or trained on may more dynamic examples in general the performance would improve. currently, I rate it at around 50% or so accuracy for generalization if the cases are new and unique, it's certainly better than not having it but still requires work.
+From these examples, a pattern emerges. The model demonstrates a proficiency in identifying distinct copyright statements. However, it exhibits challenges when the statements are embedded within additional context or exhibit unique formatting. These examples, all of which are **out-of-dataset and previously unseen by the model**, highlight its current limitations. Despite being trained on a dataset of about 4000 labeled texts, the model encounters difficulties with unfamiliar structures and formats, such as the GNU license. This suggests that while the model has learned well from its training data, there's a need for broader exposure to diverse examples to enhance its generalization capabilities.
+
+
+While the current accuracy of 50% on new and unique cases is a promising start, it's evident that further refinement and a larger training dataset would be beneficial.
+
 
 <h2>5. Creation of the copyrightfpd package</h2>
 <!-- ! TODO: Rememer to change the package name and links--> 
-After finishing the models, I had to create a PyPI package to add my model binaries into, and add some code that supports using it easily, at the same time, it simplifies the integration process into the Fossology codebase. 
 
-- The package link can be found [here](https://pypi.org/project/copyrightfpd/)
-- The code for the package can be found [here](https://github.com/fossology/copyrightfpd) 
+After the completion of the model development, the next logical step was to encapsulate it into a package. This would not only make the binaries of the model easily accessible but would also provide a structured way for users to interact with it. Thus, the `copyrightfpd` package was born.
 
-The package has four functions: predict, declutter, train, and save. Additional docuemntation is provided in the links above
+You can find the package on [PyPI](https://pypi.org/project/copyrightfpd/) and its source code is hosted on [GitHub](https://github.com/fossology/copyrightfpd). This package simplifies the user experience by offering four primary functions: `predict`, `declutter`, `train`, and `save`. For a deeper dive into how each function works, the linked documentation provides comprehensive insights.
 
 <h2>6. Writing traing and testing scripts </h2>
-After creating the package, I wrote scripts that can automate the process of training and testing the scripts, they will be used iteratively every few months or so to train the models on new data.
 
-  - The scripts are also provided along with the repository containing the package code [here](https://github.com/fossology/copyrightfpd)
+The dynamic nature of copyright requires our model to be continuously updated with new data. To facilitate this iterative improvement, I've developed scripts that automate the processes of training and testing. These scripts are set to be used every few months, ensuring that the model remains updated with the latest data trends.
+
+For those interested in the intricacies of these scripts or perhaps even in contributing to their development, they are hosted alongside the package code on [this GitHub repository](https://github.com/fossology/copyrightfpd).
 
 <h2>7. Integration with Fossology</h2>
-The process of integrating the models into fossology was quite simply owing the creation of the package, which abstracted much of the process.
 
-<br>
+Merging our work into the existing Fossology infrastructure was streamlined by the creation of our package. The `copyrightfpd` package abstracted many complexities, making the integration process smoother. 
 
-Additionally, the integration into Fossology's PHP codebase was extremely simply thanks to [Kaushlendra](https://github.com/Kaushl2208) already doing all of that work before as part of his GSoC-21 project.
+A notable mention goes to [Kaushlendra](https://github.com/Kaushl2208) who significantly eased the integration into Fossology's PHP codebase, leveraging his invaluable work from the GSoC-21 project.
+
 
 <h2>8. Documentation and Pull Requests</h2>
-Includes:
 
-1. This is the PR which contains integrates my code and package into the Fossology Codebase: [Link](https://github.com/fossology/fossology/pull/2589)
-2. In this PR I upload my package source code into the fossology maintained repository, which will be used to update the package in the future: [Link]()
-3. My weekly progress updates can be found [here](https://fossology.github.io/gsoc/docs/2023/copyrights)
+A crucial aspect of development is ensuring that all changes and additions are well-documented. This not only helps current collaborators but also future developers who might work on this project. 
+
+1. I've created a Pull Request that integrates my package into the Fossology Codebase. You can review it [here](https://github.com/fossology/fossology/pull/2589).
+2. The source code of my package has been uploaded via this Pull Request into the Fossology's maintained repository. This will be crucial for future updates. [Link]()
+3. For those interested in the journey and iterative progress of this project, I've maintained weekly progress updates which can be explored [here](https://fossology.github.io/gsoc/docs/2023/copyrights).
 
 <h1 align="center" id="deliverables">Deliverables</h1>
 
