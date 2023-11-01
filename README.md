@@ -16,15 +16,6 @@
     </h2>
 </div>
 
-<p align="center">
-    <a href="#project-details">Project Details</a> •
-    <a href="#contributions">Contributions</a> •
-    <a href="#deliverables">Deliverables</a> •
-    <a href="#future-goals">Future Goals</a> •
-    <a href="#key-takeaways">Key Takeaways</a> •
-    <a href="#Acknowledgements">Acknowledgements</a>
-</p>
-
 <h1 align="center" id="project-details">Project Details</h1>
 
 The aim of this project is to enhance and automate Fossology's copyright detection process. As it stands, Fossology largely depends on regex, initially employing it to pinpoint all *potential* copyright notices. Subsequently, human intervention is required to vet every copyright declaration and to weed out the inaccuracies. Given its rigorous extraction method to ensure no copyright notices are overlooked, it often demands extensive manual hours to thoroughly review the results.
@@ -127,12 +118,14 @@ From these examples, a pattern emerges. The model demonstrates a proficiency in 
 While the current accuracy of 50% on new and unique cases is a promising start, it's evident that further refinement and a larger training dataset would be beneficial.
 
 
-<h2>5. Creation of the copyrightfpd package</h2>
-<!-- ! TODO: Rememer to change the package name and links--> 
+<h2>5. Creation of the Safaa package</h2>
 
-After the completion of the model development, the next logical step was to encapsulate it into a package. This would not only make the binaries of the model easily accessible but would also provide a structured way for users to interact with it. Thus, the `copyrightfpd` package was born.
+After the completion of the model development, the next logical step was to encapsulate it into a package. This would not only make the binaries of the model easily accessible but would also provide a structured way for users to interact with it. Thus, the `Safaa` package was born.
 
-You can find the package on [PyPI](https://pypi.org/project/copyrightfpd/) and its source code is hosted on [GitHub](https://github.com/fossology/copyrightfpd). This package simplifies the user experience by offering four primary functions: `predict`, `declutter`, `train`, and `save`. For a deeper dive into how each function works, the linked documentation provides comprehensive insights.
+<!-- TODO: Change the package link -->
+You can find the package on [PyPI](https://pypi.org/project/copyrightfpd/) and its source code is hosted on [GitHub](https://github.com/fossology/copyrightfpd). This package simplifies the user experience by offering two primary functions: `predict` and `declutter` as well as other functions for training purposes. For a deeper dive into how each function works, the linked documentation provides comprehensive insights.
+
+**A copy of the package source code is provided in this Repository**
 
 <h2>6. Writing traing and testing scripts </h2>
 
@@ -152,15 +145,93 @@ A notable mention goes to [Kaushlendra](https://github.com/Kaushl2208) who signi
 A crucial aspect of development is ensuring that all changes and additions are well-documented. This not only helps current collaborators but also future developers who might work on this project. 
 
 1. I've created a Pull Request that integrates my package into the Fossology Codebase. You can review it [here](https://github.com/fossology/fossology/pull/2589).
-2. The source code of my package has been uploaded via this Pull Request into the Fossology's maintained repository. This will be crucial for future updates. [Link]()
+2. The source code of my package has been uploaded via this Pull Request into the Fossology's maintained repository. This will be crucial for future updates. [Link](https://github.com/fossology/copyrightfpd/pull/1)
 3. For those interested in the journey and iterative progress of this project, I've maintained weekly progress updates which can be explored [here](https://fossology.github.io/gsoc/docs/2023/copyrights).
 
-<h1 align="center" id="deliverables">Deliverables</h1>
+**Additionally, there is a [notebook](./files/project-showcase.ipynb) provided with this project, which showcases the functionalities of the package, as well as more of the code I created and used during the package creation.**
 
-<h1 align="center" id="future-work">Future Work</h1>
+<h1 align="center" id="deliverables">Deliverables</h1>
+  
+<div align="center">
+
+| Tasks                            | Planned | Completed              |
+| -------------------------------- | ------- | ----------------------- |
+| Dataset Creation                 |   ✅    |   ✅                    |
+| False Positive Detection Model |   ✅    |   ✅                    |
+| Decluttering Model                     |    ✅     |   ✔️ (Partial, requires further improvements) |
+| Safaa Package Creation            |     ❌    |   ✅  |
+| Integration                      |   ✅    |   ✅                    |
+| Training and Utility Scripts     |   ✅    |   ✅                    |
+
+</div>
+
+<br>
+
+<h1 align="center" id="future-goals">Future Goals</h1>
+
+<h2> Expand the Dataset </h2> 
+As discussed in the decluttering performance, there's an evident need for a larger and more diverse dataset. Incorporating a variety of real-world copyright notices, particularly those not covered in the current dataset, will aid in improving model accuracy and robustness.
+<h2> Language Adaptability </h2> 
+
+The current model mainly caters to English copyright notices. Future endeavors should consider expanding its capabilities to other languages, making the tool more universally applicable.
+
+<h2> Incorporate Feedback Loop </h2>
+
+Implement a mechanism to capture feedback from Fossology users. This would provide valuable insights into the model's real-world performance and areas of improvement.
+
+<h2> Optimize Model Parameters </h2>
+While SVM was found to be the most suitable model for the current dataset, continuous evaluations and benchmarking should be carried out as the dataset evolves and grows.
+
+<h2> Enhanced Decluttering </h2>
+Further refine the decluttering mechanism. As the decluttering model encounters new edge cases, retraining with these instances will be paramount to its ongoing improvement. 
+<br>
+<br>
 
 <h1 align="center" id="key-takeaways">Key Takeaways</h1>
 
+Navigating this project deepened my appreciation for the intricacies of machine learning and natural language processing. With every challenge, I learned something new. Below are some of the key experiences and takeaways:
+
+## Labeling Datasets
+
+- **Quality Assurance**: Ensured high-quality data for better machine learning outcomes.
+- **Efficient Automation**: Developed automation scripts to streamline the data labeling process.
+
+## Named Entity Recognition (NER)
+
+- **Dataset Creation**: Curated datasets tailored for NER tasks.
+- **Precision in Labeling**: Adopted meticulous labeling procedures to accurately identify entities.
+
+## SpaCY for NER Applications
+
+- **Proficiency with SpaCY**: Leveraged SpaCY for advanced NER and natural language processing tasks.
+- **Model Training & Deployment**: Gained hands-on experience in training and deploying models using SpaCY.
+
+## Python Package Development and Deployment
+
+- **Code Packaging**: Converted scripts into modular Python packages.
+- **Publication to PyPI**: Successfully published packages on the Python Package Index.
+
+## Preprocessing & Experimentation
+
+- **Innovative Preprocessing**: Created custom a preprocessing functions for copyright notice tasks.
+- **Dataset Organization**: Improved methods for dataset structuring and use.
+
+## Model Optimization & Vectorization
+
+- **Parameter Tuning**: Adjusted model parameters for better performance.
+- **Vectorizer Exploration**: Tested various vectorization techniques to find the best fit.
+
+## Collaborative Endeavors
+
+- **Team Dynamics**: Engaged in regular discussions with my mentors, ensuring we were aligned in our approach and vision.
+- **Work Presentation**: Presented project findings and details to a range of audiences.
+
+## Git Mastery
+
+- **Version Control**: Improved skills in using git for effective version control and team collaboration.
+
 <h1 align="center" id="acknowledgements">Acknowledgements</h1>
+
+I extend my deepest gratitude to my mentors [Gaurav Mishra](https://github.com/GMishx), [Anupam Ghosh](https://github.com/ag4ums), [Ayush Bharadwaj](https://github.com/hastagAB), [Kaushlendra Pratap](https://github.com/Kaushl2208), and [Shaheem Azmal M MD.](https://github.com/shaheemazmalmmd) Their unwavering support and invaluable guidance have been instrumental in shaping this project. Whenever I sought advice or assistance, they generously shared their expertise and insights. Their commitment to mentoring has been a driving force behind my growth and the success of this venture.
 
 
