@@ -127,7 +127,7 @@ You can find the package on [PyPI](https://pypi.org/project/copyrightfpd/) and i
 
 **A copy of the package source code is provided in this Repository**
 
-<h2>6. Writing traing and testing scripts </h2>
+<h2>6. Writing training and testing scripts </h2>
 
 The dynamic nature of copyright requires our model to be continuously updated with new data. To facilitate this iterative improvement, I've developed scripts that automate the processes of training and testing. These scripts are set to be used every few months, ensuring that the model remains updated with the latest data trends.
 
